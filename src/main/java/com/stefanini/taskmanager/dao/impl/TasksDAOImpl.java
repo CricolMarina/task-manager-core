@@ -16,10 +16,9 @@ import com.stefanini.taskmanager.domain.Task;
 public class TasksDAOImpl extends AbstractManagerConnection implements TasksDAO {
 	
 	private static final Logger logger = LogManager.getLogger(TasksDAOImpl.class);
-	
-	private TasksDAOImpl() {}
-	
 	private static TasksDAOImpl taskDAO;
+
+	private TasksDAOImpl() {}
 	
 	public static TasksDAOImpl getInstance() {
 		if (taskDAO==null) {
@@ -37,14 +36,13 @@ public class TasksDAOImpl extends AbstractManagerConnection implements TasksDAO 
 		try {
 			Connection connection = getConnection();
 		    // Statement
-		    String addTask="INSERT INTO tasks (user, task_title, task_description)\r\n"
+		    String addTask="INSERT INTO task (username, task_title, task_description)\r\n"
 		    		+ "VALUES (?, ?, ?)";
 		    PreparedStatement stmt = connection.prepareStatement(addTask);
 		    
 		    stmt.setString(1, task.getUsername());
 		    stmt.setString(2, task.getTitle());
 		    stmt.setString(3, task.getDescription());
-		   	    
 		    stmt.execute();
 		    stmt.close();
 	
@@ -62,7 +60,7 @@ public class TasksDAOImpl extends AbstractManagerConnection implements TasksDAO 
 		try {
 			Connection connection = getConnection();
 			
-			String sqlRequest = "SELECT * FROM tasks WHERE user = ?";
+			String sqlRequest = "SELECT * FROM task WHERE username = ?";
 			PreparedStatement stmt = connection.prepareStatement(sqlRequest);
 			stmt.setString(1, userName);
 			ResultSet rs = stmt.executeQuery();

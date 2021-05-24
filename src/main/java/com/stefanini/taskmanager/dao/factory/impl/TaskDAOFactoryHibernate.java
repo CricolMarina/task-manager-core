@@ -9,5 +9,4 @@ public class TaskDAOFactoryHibernate implements AbstractFactoryTask{
 	public TasksDAO getDAO() {
 		return TaskDAOHibernate.getInstance();
 	}
-
 }

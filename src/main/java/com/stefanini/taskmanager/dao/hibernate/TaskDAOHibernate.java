@@ -1,12 +1,10 @@
 package com.stefanini.taskmanager.dao.hibernate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.stefanini.taskmanager.dao.TasksDAO;
@@ -15,11 +13,10 @@ import com.stefanini.taskmanager.domain.User;
 import com.stefanini.taskmanager.util.HibernateSessionManager;
 
 public class TaskDAOHibernate implements TasksDAO{
+	
 	private static final Logger logger = LogManager.getLogger(UserDAOHibernate.class);
-
-
 	private static TaskDAOHibernate userDAO;
-
+	
 	private TaskDAOHibernate() {}
 		
 	public static TaskDAOHibernate getInstance() {

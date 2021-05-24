@@ -9,5 +9,4 @@ public class UserDAOFactoryHibernate implements AbstractFactoryUser{
 	public UserDAO getDAO() {
 		return UserDAOHibernate.getInstance();
 	}
-
 }

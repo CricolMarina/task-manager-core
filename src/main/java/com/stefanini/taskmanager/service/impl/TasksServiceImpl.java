@@ -15,9 +15,8 @@ import com.stefanini.taskmanager.service.TasksService;
 
 public class TasksServiceImpl implements TasksService{
 	
-private TasksDAO dao;
-
-private static final Logger logger = LogManager.getLogger(TasksServiceImpl.class);
+	private static final Logger logger = LogManager.getLogger(TasksServiceImpl.class);
+	private TasksDAO dao;
 
 	public TasksServiceImpl(AbstractFactoryTask daoFactory) {
 		dao = daoFactory.getDAO(); 
@@ -30,7 +29,8 @@ private static final Logger logger = LogManager.getLogger(TasksServiceImpl.class
 	public void showTaskByUser(String userName) {
 		List<Task> taskList = dao.getTasksByUser(userName);
 		for (Task task : taskList  ) {
-			logger.info("Task title: " + task.getTitle());
+			logger.info("Task title: " + task.getTitle() + " "
+			+ "username: " + task.getUsername());
 		}
 	}
 }	

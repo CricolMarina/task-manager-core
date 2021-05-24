@@ -8,17 +8,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.stefanini.taskmanager.dao.UserDAO;
 import com.stefanini.taskmanager.dao.factory.AbstractFactoryUser;
-import com.stefanini.taskmanager.dao.factory.impl.UserDAOFactory;
-import com.stefanini.taskmanager.dao.factory.impl.UserDAOFactoryHibernate;
-import com.stefanini.taskmanager.dao.hibernate.UserDAOHibernate;
-import com.stefanini.taskmanager.dao.impl.TasksDAOImpl;
 import com.stefanini.taskmanager.domain.User;
 import com.stefanini.taskmanager.service.UserService;
 
 public class UserServiceImpl implements UserService {
-	
 	private UserDAO dao;
-	
 	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 	
 	public UserServiceImpl(AbstractFactoryUser daoFactory) {
@@ -30,7 +24,6 @@ public class UserServiceImpl implements UserService {
 	 * @param user 
 	 * @throws SQLIntegrityConstraintViolationException
 	 */
-	
 	public void createUser(User user) {
 		try {
 			dao.createUser(user);

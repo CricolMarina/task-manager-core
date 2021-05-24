@@ -45,7 +45,12 @@ public class User implements Serializable{
 	
 	public User () {
 	} 
-	
+	/**
+	 * Creates an user with the specified parameters
+	 * @param firstName
+	 * @param lastName
+	 * @param username
+	 */
 	public User( String firstName, String lastName,String username) {
 		this.username=username;
 		this.firstName=firstName;

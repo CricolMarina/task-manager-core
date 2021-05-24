@@ -17,11 +17,9 @@ import com.stefanini.taskmanager.domain.User;
 public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 	
 	private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
-	
+	private static UserDAOImpl userDAO;
 	
 	private UserDAOImpl() {}
-	
-	private static UserDAOImpl userDAO;
 	
 	public static UserDAOImpl getInstance() {
 		if (userDAO==null) {
@@ -40,7 +38,7 @@ public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 		try {
 			Connection connection = getConnection();
 		    // Statement
-		    String createUser="INSERT INTO users (username, first_name, last_name)" + "VALUES (?, ?, ?)";
+		    String createUser="INSERT INTO user (username, first_name, last_name)" + "VALUES (?, ?, ?)";
 		    PreparedStatement stmt = connection.prepareStatement(createUser);
 		    
 		    stmt.setString(1, user.getUsername());
@@ -72,9 +70,9 @@ public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 		try {
 			Connection connection = getConnection();
 
-			String sqlRequest = "select username, first_name, last_name, count(tasks.task_id) as tasks from users "
-					+ "inner join tasks on users.username=tasks.user \r\n"
-					+ "group by user;";
+			String sqlRequest = "select user.username, first_name, last_name, count(task.id) as tasks from user "
+					+ "inner join task on user.username=task.username \r\n"
+					+ "group by username;";
 			PreparedStatement stmt = connection.prepareStatement(sqlRequest);
 			ResultSet rs = stmt.executeQuery();
 			

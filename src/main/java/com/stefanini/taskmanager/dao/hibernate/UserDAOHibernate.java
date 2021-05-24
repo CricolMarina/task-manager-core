@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import com.stefanini.taskmanager.dao.UserDAO;
 import com.stefanini.taskmanager.domain.User;
@@ -16,7 +15,6 @@ import com.stefanini.taskmanager.util.HibernateSessionManager;
 public class UserDAOHibernate implements UserDAO{
 	
 	private static final Logger logger = LogManager.getLogger(UserDAOHibernate.class);
-
 	private static UserDAOHibernate userDAO;
 
 	private UserDAOHibernate() {}
@@ -56,7 +54,7 @@ public class UserDAOHibernate implements UserDAO{
 			logger.error("Error", e);
 		}
 }
-	
+
 	/**
 	 * This method is used to get user's list
 	 */

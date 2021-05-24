@@ -3,7 +3,6 @@ package com.stefanini.taskmanager.service;
 import com.stefanini.taskmanager.domain.Task;
 
 public interface TasksService {
-	
 	/**
 	 * This method is used to add tasks for users
 	 * @param task

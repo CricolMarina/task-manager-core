@@ -19,12 +19,6 @@ public interface UserDAO {
 	 * 
 	 */
 	List<User> getUserList();
-	
-	/**
-	 * 
-	 * @param username
-	 * @return
-	 */
 }
 
 

@@ -17,9 +17,6 @@ import javax.persistence.Transient;
 @Table(name = "task")
 public class Task implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,7 +37,12 @@ public class Task implements Serializable{
 	private User user;
 	
 	public Task() {}
-	
+	/**
+	 * Creates a task with the specified parameters
+	 * @param username
+	 * @param title
+	 * @param description
+	 */
 	public Task(String username, String title, String description) {
 		this.username=username;
 		this.title=title;

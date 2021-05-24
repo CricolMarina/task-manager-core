@@ -9,11 +9,9 @@ import org.hibernate.cfg.Configuration;
 import com.stefanini.taskmanager.domain.Task;
 import com.stefanini.taskmanager.domain.User;
 
-
 public class HibernateSessionManager {
 	private static SessionFactory sessionFactory;
 	private static final Logger logger = LogManager.getLogger(HibernateSessionManager.class);
-
 
     public HibernateSessionManager() {}
 
