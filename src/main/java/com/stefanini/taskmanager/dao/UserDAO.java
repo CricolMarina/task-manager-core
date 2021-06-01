@@ -19,6 +19,13 @@ public interface UserDAO {
 	 * 
 	 */
 	List<User> getUserList();
-}
+	
+	/**
+	 * This method is used to get user by username
+	 * @param username
+	 * @return user
+	 */
+	User getUserByUsername(String username);
+	}
 
 

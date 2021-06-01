@@ -6,10 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.stefanini.taskmanager.dao.TasksDAO;
-import com.stefanini.taskmanager.dao.UserDAO;
 import com.stefanini.taskmanager.dao.factory.AbstractFactoryTask;
-import com.stefanini.taskmanager.dao.factory.AbstractFactoryUser;
-import com.stefanini.taskmanager.dao.factory.impl.TaskDAOFactory;
 import com.stefanini.taskmanager.domain.Task;
 import com.stefanini.taskmanager.service.TasksService;
 
@@ -31,6 +28,6 @@ public class TasksServiceImpl implements TasksService{
 		for (Task task : taskList  ) {
 			logger.info("Task title: " + task.getTitle() + " "
 			+ "username: " + task.getUsername());
+			}
 		}
-	}
-}	
+	}	

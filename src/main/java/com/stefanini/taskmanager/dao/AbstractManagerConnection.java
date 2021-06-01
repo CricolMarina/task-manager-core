@@ -35,5 +35,5 @@ public abstract class AbstractManagerConnection {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection connection = DriverManager.getConnection(url, dbuser, password);
 				return connection;
+				}
 	}
-}

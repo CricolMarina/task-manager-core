@@ -9,7 +9,6 @@ import org.hibernate.query.Query;
 
 import com.stefanini.taskmanager.dao.TasksDAO;
 import com.stefanini.taskmanager.domain.Task;
-import com.stefanini.taskmanager.domain.User;
 import com.stefanini.taskmanager.util.HibernateSessionManager;
 
 public class TaskDAOHibernate implements TasksDAO{
@@ -32,20 +31,16 @@ public class TaskDAOHibernate implements TasksDAO{
 	 */
 	public void addTask(Task task) {
 		Session session = HibernateSessionManager.getSessionFactory().openSession();
-        Query query = session.createQuery("FROM User where username =: username")
-        		.setParameter("username", task.getUsername());
-        User user = (User) query.uniqueResult();
-        if(user != null) {
-        	task.setUser(user);
+        if(task.getUser() != null) {
         	session.save(task);
         } else {
-        logger.error("No user with user name " + task.getUsername() + "found in the DB!");
-        }
+        	logger.error("No user with username " + task.getUsername() + "found in the DB!");
+        	}
         session.close();
-    }
+        }
 	
 	/**
-	 * This method is used to get a task list by useraname
+	 * This method is used to get task list by username
 	 * @param userName
 	 * @return list of tasks
 	 */
@@ -54,5 +49,5 @@ public class TaskDAOHibernate implements TasksDAO{
         Query<Task> query = session.createQuery("FROM Task where username =: username")
         		.setParameter("username", username);
         return query.list();
+        }
 	}
-}

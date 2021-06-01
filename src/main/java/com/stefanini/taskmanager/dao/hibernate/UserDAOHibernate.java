@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.query.Query;
 
 import com.stefanini.taskmanager.dao.UserDAO;
 import com.stefanini.taskmanager.domain.User;
@@ -30,7 +32,6 @@ public class UserDAOHibernate implements UserDAO{
 	 * This method is used to create users
 	 * @param user
 	 */
-		
 	public void createUser(User user) throws SQLIntegrityConstraintViolationException {
 		logger.info("Add user " + user.getFirstName());
 		
@@ -40,37 +41,40 @@ public class UserDAOHibernate implements UserDAO{
 	        session.save(user);
 	        tx1.commit();
 	        session.close();
-	        
-	    } 
-//		catch (SQLIntegrityConstraintViolationException e) {
-//			//Check if user duplication
-//			if(e.getMessage().contains("Duplicate entry")) {
-//				throw e;
-//			} else {
-//				LOG.error("Error", e);
-//			}
-//		}
-		catch (Exception e) {
-			logger.error("Error", e);
+	        } 
+		catch (ConstraintViolationException e) {
+			//Check if user duplication
+			if(e.getSQLException().getMessage().contains("Duplicate entry")) {
+				throw (SQLIntegrityConstraintViolationException)e.getSQLException();
+			} else {
+				logger.error("Error", e);
+				}
+			}
 		}
-}
 
 	/**
 	 * This method is used to get user's list
+	 * @return users
 	 */
-	
 	public List<User> getUserList() {
 		List<User> users = (List<User>) HibernateSessionManager.getSessionFactory()
 				.openSession().createQuery("From User").list();
         return users;
-	} 
+        } 
 	
-//	public User getByUsername(String username) {
-//		Session session = HibernateSessionManager.getSessionFactory().openSession();
-//        Query query = session.createQuery("FROM user where username =: username")
-//        		.setParameter("username", username);
-//        return (User) query.uniqueResult();
-//	}
-	
-}    
+	/** 
+	 * This method is used to get user by username
+	 * @param username
+	 * @return user
+	 */
+	public User getUserByUsername(String username) {
+		Session session = HibernateSessionManager.getSessionFactory().openSession();
+		Query query = session.createQuery("FROM User where username =: username")
+        		.setParameter("username", username);
+		User user = (User) query.uniqueResult();
+		logger.info("Get user by username:" + user.getUsername());
+		return user;
+		}
+	}
+
 

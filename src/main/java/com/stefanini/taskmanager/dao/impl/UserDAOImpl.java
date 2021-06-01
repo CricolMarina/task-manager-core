@@ -37,7 +37,6 @@ public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 		logger.info("Add user " + user.getFirstName());
 		try {
 			Connection connection = getConnection();
-		    // Statement
 		    String createUser="INSERT INTO user (username, first_name, last_name)" + "VALUES (?, ?, ?)";
 		    PreparedStatement stmt = connection.prepareStatement(createUser);
 		    
@@ -53,12 +52,11 @@ public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 				throw e;
 			} else {
 				logger.error("Error", e);
-			}
+				}
+			} catch (Exception e) {
+				logger.error("Error", e);
+				}
 		}
-		catch (Exception e) {
-			logger.error("Error", e);
-		}
-	}
 	
 	/**
 	 * This method is used to get users' list
@@ -66,7 +64,6 @@ public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 	 */
 	public List<User> getUserList() {
 		List<User> users = new ArrayList<User>();
-		
 		try {
 			Connection connection = getConnection();
 
@@ -83,12 +80,36 @@ public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 			    user.setLastName(rs.getString("last_name"));
 			    user.setTasksCounter(rs.getInt("tasks"));
 			    users.add(user);
-			}
+			    }
 			stmt.close();
-		}
-			catch (Exception e) {
+			} catch (Exception e) {
 				logger.error("Error", e);
-			}
-		    return users;
+				}
+		return users;
 		}
-}
+	
+	/**
+	 * This method is used to get user by username
+	 * @param username
+	 * @return user
+	 */
+	public User getUserByUsername(String username) {
+		User user = new User();
+		try {
+			Connection connection = getConnection();
+		    // Statement
+			String sqlRequest = "SELECT * FROM user WHERE username = ?";
+			PreparedStatement stmt = connection.prepareStatement(sqlRequest);
+			stmt.setString(3, username);
+			ResultSet rs = stmt.executeQuery();
+			
+			user.setFirstName(rs.getString("first_name"));
+			user.setLastName(rs.getString("last_name"));
+			user.setUsername(rs.getString("username"));
+			stmt.close();
+			} catch (Exception e) {
+				logger.error("User with this username does not exist" ,e);
+				}
+		return user;
+		}
+	}

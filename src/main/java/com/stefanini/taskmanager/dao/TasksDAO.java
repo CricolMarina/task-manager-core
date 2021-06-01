@@ -18,4 +18,4 @@ public interface TasksDAO {
 		 * @return list of tasks 
 		 */
 		List<Task> getTasksByUser(String userName);
-}
+		}

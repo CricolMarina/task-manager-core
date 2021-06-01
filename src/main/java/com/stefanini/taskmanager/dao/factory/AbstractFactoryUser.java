@@ -7,4 +7,4 @@ public interface AbstractFactoryUser {
 	 * This method is used to get DAO
 	 */
 	UserDAO getDAO();
-}
+	}

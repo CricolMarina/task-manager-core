@@ -1,6 +1,7 @@
 package com.stefanini.taskmanager.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,25 +11,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 @Entity 
 @Table (name = "user")
-@SecondaryTable (name = "task")
 
-public class User implements Serializable{
+public class User implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column (name = "username")
 	private String username;
@@ -41,7 +34,7 @@ public class User implements Serializable{
 	private int tasksCounter;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Task> tasks;
+	private List<Task> tasks = new ArrayList<Task>(); 
 	
 	public User () {
 	} 
@@ -55,6 +48,19 @@ public class User implements Serializable{
 		this.username=username;
 		this.firstName=firstName;
 		this.lastName=lastName;
+	}
+	
+	public void addTask(Task task) {
+		task.setUser(this);
+		tasks.add(task);
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id=id;
 	}
 	
 	public String getUsername() {
@@ -93,7 +99,7 @@ public class User implements Serializable{
 		return tasks;
 	}
 	
-	public void setTasks() {
+	public void setTasks(List<Task> tasks) {
 		this.tasks=tasks;
 	}
 	
@@ -105,6 +111,6 @@ public class User implements Serializable{
 				",lastName=' " + lastName+ '\'' +
 				",tasksCounter= " + tasksCounter +
 				'}';
+		}
 	}
-}
 

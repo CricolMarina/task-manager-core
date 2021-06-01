@@ -8,5 +8,5 @@ public class TaskDAOFactory implements AbstractFactoryTask{
 
 	public TasksDAO getDAO() {
 		return TasksDAOImpl.getInstance();
+		}
 	}
-}

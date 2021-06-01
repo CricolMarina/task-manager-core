@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.stefanini.taskmanager.dao.UserDAO;
 import com.stefanini.taskmanager.dao.factory.AbstractFactoryUser;
+import com.stefanini.taskmanager.domain.Task;
 import com.stefanini.taskmanager.domain.User;
 import com.stefanini.taskmanager.service.UserService;
 
@@ -40,6 +41,17 @@ public class UserServiceImpl implements UserService {
 		logger.info("Show users' list ");
 		for (User user : userList ) {
 			logger.info(user);
+			}
+		}
+	
+	/**
+	 * This method is used to get used by username
+	 * @param username
+	 * @return user
+	 */
+	public User getUserByUsername(String username) {
+		User user = dao.getUserByUsername(username);	
+		logger.info("Get user by username: " + user.getUsername());
+		return user;
 		}
 	}
-}

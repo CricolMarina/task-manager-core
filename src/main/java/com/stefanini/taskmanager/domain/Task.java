@@ -15,9 +15,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "task")
-public class Task implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class Task implements Serializable {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)

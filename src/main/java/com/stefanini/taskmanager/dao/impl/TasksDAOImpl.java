@@ -54,6 +54,7 @@ public class TasksDAOImpl extends AbstractManagerConnection implements TasksDAO 
 	/**
 	 * This method is used to get task by userName
 	 * @param userName
+	 * @return list of tasks
 	 */
 	public List<Task> getTasksByUser(String userName){
 		List<Task> tasksList = new ArrayList<Task>();
@@ -76,7 +77,7 @@ public class TasksDAOImpl extends AbstractManagerConnection implements TasksDAO 
 			stmt.close();
 		} catch (Exception e) {
 			logger.error("Error", e);
-		}
-	    return tasksList;
-	}  
-}
+			}
+		return tasksList;
+		}  
+	}

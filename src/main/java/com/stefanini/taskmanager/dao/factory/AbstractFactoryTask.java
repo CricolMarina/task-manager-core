@@ -7,4 +7,4 @@ public interface AbstractFactoryTask {
 	 * This method is used to get DAO
 	 */
 	TasksDAO getDAO();
-}
+	}
