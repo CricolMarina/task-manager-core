@@ -1,5 +1,6 @@
 package com.stefanini.taskmanager.dao.impl;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -113,3 +114,4 @@ public class UserDAOImpl extends AbstractManagerConnection implements UserDAO{
 		return user;
 		}
 	}
+

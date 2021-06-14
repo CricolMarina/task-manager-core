@@ -13,21 +13,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.stefanini.taskmanager.annotations.Email;
+import com.stefanini.taskmanager.annotations.EmailField;
+
 @Entity
 @Table(name = "task")
+@Email(emailText = "Task {taskTitle} {taskDescription} has been assigned to {username}")
 public class Task implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Transient
+	@EmailField(fieldName =  "username")
 	private String username;
 	
 	@Column(name = "task_title")
+	@EmailField(fieldName = "taskTitle")
 	private String title;
 	
 	@Column(name = "task_description")
+	@EmailField(fieldName =  "taskDescription")
 	private String description;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
 package com.stefanini.taskmanager.dao.hibernate;
 
+import java.lang.reflect.Field;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
@@ -72,9 +73,7 @@ public class UserDAOHibernate implements UserDAO{
 		Query query = session.createQuery("FROM User where username =: username")
         		.setParameter("username", username);
 		User user = (User) query.uniqueResult();
-		logger.info("Get user by username:" + user.getUsername());
 		return user;
 		}
-	}
-
+}
 

@@ -24,5 +24,5 @@ public interface UserService {
 	 * @return user
 	 */
 	User getUserByUsername(String username);
-	}
+}
 
