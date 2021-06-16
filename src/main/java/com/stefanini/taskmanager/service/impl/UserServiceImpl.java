@@ -9,19 +9,10 @@ import org.apache.logging.log4j.Logger;
 import com.stefanini.taskmanager.dao.UserDAO;
 import com.stefanini.taskmanager.dao.factory.AbstractFactoryUser;
 import com.stefanini.taskmanager.domain.User;
-import com.stefanini.taskmanager.messagesender.Message;
-import com.stefanini.taskmanager.messagesender.MessageCreator;
-import com.stefanini.taskmanager.messagesender.MessageCreatorImpl;
-import com.stefanini.taskmanager.messagesender.MessageReceiver;
-import com.stefanini.taskmanager.messagesender.MessageReceiverImpl;
-import com.stefanini.taskmanager.messagesender.MessageSender;
-import com.stefanini.taskmanager.messagesender.MessageSenderImpl;
 import com.stefanini.taskmanager.service.UserService;
 
 public class UserServiceImpl implements UserService {
 	private UserDAO dao;
-	private MessageCreator creator = new MessageCreatorImpl();
-	private MessageSender sender = new MessageSenderImpl();
 	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 	
 	public UserServiceImpl(AbstractFactoryUser daoFactory) {
@@ -33,22 +24,19 @@ public class UserServiceImpl implements UserService {
 	 * @param user 
 	 * @throws SQLIntegrityConstraintViolationException
 	 */
-	public void createUser(User user) {
+	public User createUser(User user) {
+		User returnValue = null;
 		try {
 			dao.createUser(user);
-			String text = creator.createMessage(user);
-			String address = "cricol.marina@extendaretail.com";
-			Message message = new Message(text, address);
-			sender.sendMessage(message);
-			
+			returnValue = user;
 		} catch (SQLIntegrityConstraintViolationException e) {
-			logger.info("Alrealdy have this user in database");
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
+			logger.error("Alrealdy have this user in database");
+		} catch (SecurityException | IllegalArgumentException e) {
 			logger.error(e);
 		}
+		return returnValue;
 	}
-	
+		
 	/**
 	 * This method is used to show all users
 	 */

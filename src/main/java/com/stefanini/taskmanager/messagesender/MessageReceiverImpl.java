@@ -19,6 +19,6 @@ public class MessageReceiverImpl implements MessageReceiver {
 	}
 	
 	public void receive(Message message) {
-		logger.info("New message : " + message.getText());
+		System.out.println("New message : " + message.getText());
 	}
 }

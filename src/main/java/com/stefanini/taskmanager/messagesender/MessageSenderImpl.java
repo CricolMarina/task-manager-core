@@ -1,14 +1,14 @@
 package com.stefanini.taskmanager.messagesender;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MessageSenderImpl implements MessageSender{
 	private static final Logger logger = LogManager.getLogger(MessageSenderImpl.class);
-	private MessageReceiverImpl receiver;
-	private ArrayList<MessageReceiverImpl> receiverList = new ArrayList<MessageReceiverImpl>();
+	private List<MessageReceiver> receiverList = new ArrayList<>();
 	
 	public MessageSenderImpl () {
 		this.receiverList.add(new MessageReceiverImpl("cricol.marina@extendaretail.com"));
@@ -17,11 +17,11 @@ public class MessageSenderImpl implements MessageSender{
 	}
 	
 	public void sendMessage(Message message) {
-		for (int i=0; i< receiverList.size(); i++) {
-			receiver = receiverList.get(i);
+		for (MessageReceiver receiver : receiverList) {
 			if (message.getAddress().equals(receiver.getAddress())) {
-				logger.info("Message was send to " + message.getAddress());
+				System.out.println("Message was send to " + message.getAddress());
 				receiver.receive(message);
+				break;
 			}
 		}
 	}

@@ -10,8 +10,9 @@ public interface UserService {
 	 * This method is used to add users
 	 * @param user
 	 * @throws SQLIntegrityConstraintViolationException
+	 * @return user
 	 */
-	void createUser(User user);
+	User createUser(User user);
 		
 	/**
 	 * This method is used to show all users

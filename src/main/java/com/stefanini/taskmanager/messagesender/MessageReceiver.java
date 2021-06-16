@@ -6,4 +6,6 @@ public interface MessageReceiver {
 	 * @param message
 	 */
 	void receive(Message message);
+	
+	String getAddress();
 }
