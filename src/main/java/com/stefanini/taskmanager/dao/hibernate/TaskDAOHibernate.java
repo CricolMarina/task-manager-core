@@ -6,17 +6,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.stefanini.taskmanager.dao.TasksDAO;
 import com.stefanini.taskmanager.domain.Task;
 import com.stefanini.taskmanager.util.HibernateSessionManager;
 
+@Repository
 public class TaskDAOHibernate implements TasksDAO{
 	
-	private static final Logger logger = LogManager.getLogger(UserDAOHibernate.class);
+	private static final Logger logger = LogManager.getLogger(TaskDAOHibernate.class);
+
 	private static TaskDAOHibernate userDAO;
 	
-	private TaskDAOHibernate() {}
+	public TaskDAOHibernate() {}
 		
 	public static TaskDAOHibernate getInstance() {
 		if (userDAO==null) {
@@ -49,5 +52,11 @@ public class TaskDAOHibernate implements TasksDAO{
         Query<Task> query = session.createQuery("FROM Task where username =: username")
         		.setParameter("username", username);
         return query.list();
-        }
 	}
+	
+	public List<Task> getTaskList(){
+		List<Task> taskList = (List<Task>) HibernateSessionManager.getSessionFactory()
+				.openSession().createQuery("From Task").list();
+        return taskList;
+	}
+}

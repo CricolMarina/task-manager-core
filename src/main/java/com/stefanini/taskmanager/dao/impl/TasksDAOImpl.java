@@ -18,7 +18,7 @@ public class TasksDAOImpl extends AbstractManagerConnection implements TasksDAO 
 	private static final Logger logger = LogManager.getLogger(TasksDAOImpl.class);
 	private static TasksDAOImpl taskDAO;
 
-	private TasksDAOImpl() {}
+	public TasksDAOImpl() {}
 	
 	public static TasksDAOImpl getInstance() {
 		if (taskDAO==null) {
@@ -79,5 +79,30 @@ public class TasksDAOImpl extends AbstractManagerConnection implements TasksDAO 
 			logger.error("Error", e);
 			}
 		return tasksList;
-		}  
+	} 
+	
+	public List<Task> getTaskList(){
+		List<Task> taskList = new ArrayList<Task>();
+		try {
+			Connection connection = getConnection();
+
+			String sqlRequest = "select username, task_title, task_description from task"
+					+ "group by username;";
+			PreparedStatement stmt = connection.prepareStatement(sqlRequest);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Task task = new Task();
+				task.setId(rs.getInt("task_id"));
+			    task.setUserame(rs.getString("username"));
+			    task.setTitle(rs.getString("task_title"));
+			    task.setDescription(rs.getString("task_description"));
+			    taskList.add(task);
+			    }
+			stmt.close();
+			} catch (Exception e) {
+				logger.error("Error", e);
+				}
+		return taskList;
 	}
+}

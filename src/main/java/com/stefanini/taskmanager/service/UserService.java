@@ -1,18 +1,18 @@
 package com.stefanini.taskmanager.service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
-import com.stefanini.taskmanager.domain.Task;
-import com.stefanini.taskmanager.domain.User;
+import com.stefanini.taskmanager.dto.UserDTO;
+import com.stefanini.taskmanager.exception.CreateUserException;
 
 public interface UserService {
 	/**
 	 * This method is used to add users
 	 * @param user
-	 * @throws SQLIntegrityConstraintViolationException
+	 * @throws CreateUserFailedException 
 	 * @return user
 	 */
-	User createUser(User user);
+	UserDTO createUser(UserDTO userDTO) throws CreateUserException;
 		
 	/**
 	 * This method is used to show all users
@@ -24,6 +24,12 @@ public interface UserService {
 	 * @param username
 	 * @return user
 	 */
-	User getUserByUsername(String username);
+	UserDTO getUserByUsername(String username);
+	
+	/**
+	 * This method is used to get users' list
+	 * @return list of users
+	 */
+	List<UserDTO> getUserList();
 }
 

@@ -1,6 +1,5 @@
 package com.stefanini.taskmanager.dao.hibernate;
 
-import java.lang.reflect.Field;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
@@ -10,17 +9,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.stefanini.taskmanager.dao.UserDAO;
 import com.stefanini.taskmanager.domain.User;
 import com.stefanini.taskmanager.util.HibernateSessionManager;
 
+@Repository
 public class UserDAOHibernate implements UserDAO{
 	
 	private static final Logger logger = LogManager.getLogger(UserDAOHibernate.class);
 	private static UserDAOHibernate userDAO;
 
-	private UserDAOHibernate() {}
+	public UserDAOHibernate() {}
 		
 	public static UserDAOHibernate getInstance() {
 		if (userDAO==null) {
@@ -61,7 +62,7 @@ public class UserDAOHibernate implements UserDAO{
 		List<User> users = (List<User>) HibernateSessionManager.getSessionFactory()
 				.openSession().createQuery("From User").list();
         return users;
-        } 
+    } 
 	
 	/** 
 	 * This method is used to get user by username
@@ -74,6 +75,6 @@ public class UserDAOHibernate implements UserDAO{
         		.setParameter("username", username);
 		User user = (User) query.uniqueResult();
 		return user;
-		}
+	}
 }
 

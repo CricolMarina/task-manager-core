@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +42,7 @@ public class User implements Serializable {
 	@Transient
 	private int tasksCounter;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Task> tasks = new ArrayList<Task>(); 
 	
 	public User () {
@@ -109,6 +110,7 @@ public class User implements Serializable {
 	
 	public void setTasks(List<Task> tasks) {
 		this.tasks=tasks;
+		setTasksCounter(tasks.size());
 	}
 	
 	@Override
@@ -117,7 +119,7 @@ public class User implements Serializable {
 				"username = ' " + username + '\'' +
 				",firstName = " + firstName + 
 				",lastName=' " + lastName+ '\'' +
-				",tasksCounter= " + tasksCounter +
+//				",tasksCounter= " + getTasks().size() +
 				'}';
 		}
 	}
